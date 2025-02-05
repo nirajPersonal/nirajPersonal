@@ -1,0 +1,156 @@
+API's Details:-----------------
+
+1 create-role
+
+curl --location 'http://localhost:8080/auth/create-role' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data '{
+    "username": "st1234",
+    "password": "243",
+    "role": "ADMIN"
+
+
+}'
+
+-------------------------------------------------------------------------------------------------------------------
+
+2. login and get token
+
+curl --location 'http://localhost:8080/auth/login' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data '{
+    "username": "ad1234",
+    "password": "243"
+}'
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+3. admit a student 
+
+curl --location 'http://localhost:8080/api/students/admit' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZDEyMzQiLCJpYXQiOjE3Mzg3NzEwMTIsImV4cCI6MTczODc4OTAxMn0.h98tCBe87ta-GJldaa8uNTrT0dz5DsrwIMHnvybvpFU' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data '{
+    "name": "abcdef",
+    "dateOfBirth": "2000-05-15",
+    "gender": "Male",
+    "uniqueStudentCode": "STU12323",
+    "addresses": [
+        {
+            "area": "123 Main St",
+            "state": "California",
+            "district": "Los Angeles",
+            "pincode": "90001",
+            "addressType": "Permanent"
+        },
+        {
+            "area": "456 Oak St",
+            "state": "California",
+            "district": "Los Angeles",
+            "pincode": "90002",
+            "addressType": "Correspondence"
+        }
+    ]
+}'
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+4. Upload course details
+
+curl --location 'http://localhost:8080/api/courses/upload' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZDEyMzQiLCJpYXQiOjE3Mzg3NzEwMTIsImV4cCI6MTczODc4OTAxMn0.h98tCBe87ta-GJldaa8uNTrT0dz5DsrwIMHnvybvpFU' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data '{
+    "courseName": "abc",
+    "description": "knowledge about abd",
+    "courseType": "Math",
+    "duration": "16",
+    "topics": "group by"
+}'
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+5. assign courses to student
+
+curl --location 'http://localhost:8080/api/students/assign-courses/2' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZDEyMzQiLCJpYXQiOjE3Mzg3NzEwMTIsImV4cCI6MTczODc4OTAxMn0.h98tCBe87ta-GJldaa8uNTrT0dz5DsrwIMHnvybvpFU' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data '[
+    1,
+    2
+]'
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+6. get students by name. (search)
+
+curl --location --request GET 'http://localhost:8080/api/students/search?name=abcdef' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZDEyMzQiLCJpYXQiOjE3Mzg3NzEwMTIsImV4cCI6MTczODc4OTAxMn0.h98tCBe87ta-GJldaa8uNTrT0dz5DsrwIMHnvybvpFU' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data '
+
+
+'
+
+
+------------------------------------------------------------------------------------------------------------------------------
+7. get students assigned to a particular course.
+
+curl --location 'http://localhost:8080/api/courses/assigned/2' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZDEyMzQiLCJpYXQiOjE3Mzg3NzEwMTIsImV4cCI6MTczODc4OTAxMn0.h98tCBe87ta-GJldaa8uNTrT0dz5DsrwIMHnvybvpFU' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data ''
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+8. update profile details
+
+
+curl --location 'http://localhost:8080/api/students/update-Profile/2' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdDEyMzQiLCJpYXQiOjE3Mzg3Njg5NTYsImV4cCI6MTczODc4Njk1Nn0.Yk-IrY5j_pUDOYDMcQNSb1RooO7FIee1tNlG6oXSNxc' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872' \
+--data-raw '{
+    "email": "newemail@example.com",
+    "mobileNumber": "1234567890",
+    "parentsName": "John Doe & Jane Doe",
+    "addresses": [
+        {
+            "area": "New Area",
+            "state": "New State",
+            "district": "New District",
+            "pincode": "123456",
+            "addressType": "Permanent"
+        }
+    ]
+}'
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+9. Can leave a course 
+
+curl --location --request DELETE 'http://localhost:8080/api/students/leave-course/2/1' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJzdDEyMzQiLCJpYXQiOjE3Mzg3Njg5NTYsImV4cCI6MTczODc4Njk1Nn0.Yk-IrY5j_pUDOYDMcQNSb1RooO7FIee1tNlG6oXSNxc' \
+--header 'Cookie: JSESSIONID=46DFA1B593E134CE0A49339294494872'
+
+
+
+
+
